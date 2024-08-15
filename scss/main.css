@@ -12056,4 +12056,10 @@ p {
 
 .text-center {
   justify-content: center;
+}
+
+.allReservations a {
+  display: block;
+  color: black;
+  padding: 10px;
 }/*# sourceMappingURL=main.css.map */
