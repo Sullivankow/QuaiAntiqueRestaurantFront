@@ -61,11 +61,10 @@ p{
     position: relative;
 
     &:hover{
-        .titre-image{
-            position: absolute;
-            top:50%;
-            left:50%;
-            transform: translate(-50%, -50%);
+
+        .titre-image,
+        .action-image-button{
+           
             opacity: 1;
         }
         img{
@@ -82,10 +81,26 @@ p{
     }
 
     .titre-image{
+        position: absolute;
+        top:50%;
+        left:50%;
+        transform: translate(-50%, -50%);
         opacity: 0;
         transition: all 0.3s;
 
 
+    }
+    .action-image-button{
+     
+     position: absolute;
+     top:0%;
+     left:0%;  
+     width: 100%;
+     padding: 5px;
+     display: flex;
+     justify-content: space-between;
+     opacity: 0;
+    transition: all 0.3s;
     }
 }
 
@@ -93,5 +108,8 @@ p{
     color: $primary;
 }
    
+.text-center{
+    justify-content: center;
+}
 
  
