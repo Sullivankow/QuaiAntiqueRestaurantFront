@@ -2,10 +2,27 @@
 
 
 const tokenCookieName = "accesstoken";
+const RoleCookieName = "role";
+const signoutBtn = document.getElementById("signout-btn");
+
+
+signoutBtn.addEventListener("click", signout);
+
+function signout(){
+    eraseCookie(tokenCookieName);
+    eraseCookie(RoleCookieName)
+    window.location.reload();
+}
 
 function setToken(token){
     setCookie(tokenCookieName, token, 7);
 }
+
+function getRole(){
+    return getCookie(RoleCookieName);
+}
+
+
 
 function getToken(){
     return getCookie(tokenCookieName);
@@ -39,18 +56,64 @@ function eraseCookie(name) {
 }
 
 function isConnected(){
-if(getToken == null || getToken == undefined){
+if(getToken() == null || getToken == undefined){
     return false;
+
 }
 else{
     return true;
 }
-
 }
 
-if(isConnected()){
-    alert("Je suis connecté");
+//test de connexion
+
+// if(isConnected()){
+//     alert("Je suis connecté");
+
+// } else {
+//     alert("Je ne suis pas connecté");
+// }
+
+/*
+disconnected
+connected(admin ou client)
+-admin
+-client*/
+
+function showAndHideElementsForRoles(){
+    const userConnected = isConnected();
+    const role = getRole();
+
+    let allElementToEdit = document.querySelectorAll('[data-show]'); 
+
+    allElementToEdit.forEach(element =>{
+        switch(element.dataset.show){
+            case 'disconnected':
+                if(userConnected){
+                    element.classList.add("d-none");
+                }
+                break;
+                case 'connected':
+                    if(!userConnected){
+                        element.classList.add("d-none");
+                    }
+                break;
+                case 'admin':
+                    if(!userConnected || role != "admin" ){
+                        element.classList.add("d-none");
+                    }
+                break;
+                case 'client':
+                    if(!userConnected || role != "client"){
+                        element.classList.add("d-none");
+                    }
+                break;
+
+        }
+    })
 }
-else{
-    alert("Je ne suis pas connecté");
-}
+
+
+
+
+
